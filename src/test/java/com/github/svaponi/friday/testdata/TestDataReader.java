@@ -41,6 +41,8 @@ public class TestDataReader
 					return line != null && !line.isEmpty();
 				}).map(line -> {
 					return line.split("\t");
+				}).filter(values -> {
+					return values.length >= 3;
 				}).map(values -> {
 					return new TestDataDto(values[0], values[1], values[2]);
 				}).collect(Collectors.toList());

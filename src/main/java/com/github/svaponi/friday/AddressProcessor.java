@@ -1,10 +1,10 @@
 package com.github.svaponi.friday;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
-import com.github.svaponi.friday.config.AddressProcessorConfigDto;
+import com.github.svaponi.friday.config.AddressParserConfigDto;
 import com.github.svaponi.friday.utils.TabSeparatedValuesFileUtil;
 
 /**
@@ -26,12 +26,14 @@ public class AddressProcessor
 		RegExs and mappings are configurable from src/main/resources/config.tsv (tab separated values)
 	 */
 
-	private List<AddressProcessorConfigDto> configs;
+	private List<AddressParserConfigDto> configs;
 
 	public AddressProcessor()
 	{
-		this.configs = TabSeparatedValuesFileUtil.loadValues(getClass().getSimpleName() + ".tsv").stream().map(values -> {
-			return new AddressProcessorConfigDto(values[0], Short.parseShort(values[1]), Short.parseShort(values[2]));
+		this.configs = TabSeparatedValuesFileUtil.loadValues(getClass().getSimpleName() + ".tsv").stream().filter(values -> {
+			return values.length >= 3;
+		}).map(values -> {
+			return new AddressParserConfigDto(values[0], Short.parseShort(values[1]), Short.parseShort(values[2]));
 		}).collect(Collectors.toList());
 	}
 
@@ -43,27 +45,6 @@ public class AddressProcessor
 	 */
 	public String[] process(String address)
 	{
-
-		String[] solution = null;
-		Matcher m;
-
-		for (AddressProcessorConfigDto conf : configs)
-		{
-			m = conf.regex.matcher(address);
-			if (m.matches())
-			{
-				String number = m.group(conf.numberGroupIndex);
-				String street = m.group(conf.streetGroupIndex);
-				solution = new String[] { street, number };
-				break;
-			}
-		}
-
-		if (solution == null)
-		{
-			solution = new String[] { "?", "?" };
-		}
-
-		return solution;
+		return configs.stream().map(conf -> new AddressParser(conf).process(address)).filter(solution -> solution != null).findAny().orElse(null);
 	}
 }

@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 /**
  * Data Transfer Object to hold the logic to parse inputs.
  */
-public class AddressProcessorConfigDto
+public class AddressParserConfigDto
 {
 	// We use public static fields for convenience
 
@@ -24,7 +24,7 @@ public class AddressProcessorConfigDto
 	 */
 	public final short numberGroupIndex;
 
-	public AddressProcessorConfigDto(String pattern, short streetGroupIndex, short numberGroupIndex)
+	public AddressParserConfigDto(String pattern, short streetGroupIndex, short numberGroupIndex)
 	{
 		this.regex = Pattern.compile(pattern);
 		this.streetGroupIndex = streetGroupIndex;

@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.junit.Assert;
@@ -63,19 +65,14 @@ public class AddressProcessorTest
 	public void test() throws Exception
 	{
 		String[] processedAddressComponents = client.process(test.unformattedAddress);
-		verify(test.addressComponents, processedAddressComponents);
-	}
-
-	private void verify(String[] addressComponents, String[] processedAddressComponents)
-	{
-		boolean ok = Arrays.deepEquals(addressComponents, processedAddressComponents);
-		System.out.printf("%-40s equals %-40s ? %s \n", format(addressComponents), format(processedAddressComponents), ok);
+		boolean ok = Arrays.deepEquals(test.addressComponents, processedAddressComponents);
+		System.out.printf("%-40s %-40s %s \n", format(test.addressComponents), format(processedAddressComponents), ok ? "OK" : "ERROR");
 		Assert.assertTrue(ok);
 	}
 
 	private String format(String[] components)
 	{
-		return String.format("{\"%s\", \"%s\"}", components[0], components[1]);
+		return components == null ? "NO MATCH FOUND" : String.format("{\"%s\", \"%s\"}", components[0], components[1]);
 	}
 
 }
