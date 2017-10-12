@@ -1,3 +1,6 @@
+.settings
 target
 .idea
 friday.iml
+.classpath
+.project
