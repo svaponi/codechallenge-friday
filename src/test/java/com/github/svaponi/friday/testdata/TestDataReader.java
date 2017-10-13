@@ -2,6 +2,7 @@ package com.github.svaponi.friday.testdata;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public class TestDataReader
 		{
 			try
 			{
-				return FileUtils.readLines(file, "UTF-8").stream().filter(line -> {
+				collection = FileUtils.readLines(file, "UTF-8").stream().filter(line -> {
 					return line != null && !line.isEmpty();
 				}).map(line -> {
 					return line.split("\t");
@@ -50,6 +51,7 @@ public class TestDataReader
 			catch (IOException e)
 			{
 				e.printStackTrace();
+				return Collections.emptyList();
 			}
 		}
 		return collection;
