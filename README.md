@@ -71,8 +71,3 @@ Execute this command to run tests:
 ```bash
 $ mvn test
 ```
-
-### Author
-
-Developed by [Samuel Vaponi](https://www.linkedin.com/in/svaponi/) ([samuel.vaponi@gmail.com](mailto:samuel.vaponi@gmail.com)).
-
