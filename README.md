@@ -31,7 +31,7 @@ Output: string of street and string of street-number
 
 ### Your Task:
 
-Write a running application in the programming language of your choice including test cases and send the source code back to [britta.knoche@friday.de](mailto:britta.knoche@friday.de).
+Write a running application in the programming language of your choice including test cases and send the source code back to [***@friday.de](mailto:[***@friday.de).
 
 
 ## SOLUTION
